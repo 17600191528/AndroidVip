@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.youth.banner.Banner
+                android:id="@+id/frame_index_banner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_120"></com.youth.banner.Banner>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/frame_index_tab"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.design.widget.TabLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_110"
+                android:background="#a3a0a0"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_130"
+                    android:layout_height="@dimen/dp_100"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/github" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/dp_5"
+                    android:layout_marginLeft="@dimen/dp_2"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_50"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/tie" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/wen" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="博文推荐"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textColor="#f00"
+                android:textSize="@dimen/sp_15" />
+
+            <com.jcodecraeer.xrecyclerview.XRecyclerView
+                android:id="@+id/frame_index_xrv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></com.jcodecraeer.xrecyclerview.XRecyclerView>
+        </LinearLayout>
+    </ScrollView>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

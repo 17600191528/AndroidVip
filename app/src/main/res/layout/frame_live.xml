@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/frame_live_sdv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200" />
+
+
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/frame_live_xrv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_below="@id/frame_live_sdv"></com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+    <TextView
+        android:id="@+id/frame_live_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/frame_live_xrv"
+        android:padding="@dimen/dp_10"
+        android:text="Android经典集锦视频"
+        android:textColor="#fff"
+        android:background="@drawable/live_txt_bg"
+        android:textSize="@dimen/sp_15" />
+
+</RelativeLayout>
