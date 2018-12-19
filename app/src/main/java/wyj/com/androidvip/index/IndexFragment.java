@@ -1,18 +1,16 @@
 package wyj.com.androidvip.index;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,9 +31,9 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import wyj.com.androidvip.R;
 import wyj.com.androidvip.base.BaseFragment;
+import wyj.com.androidvip.chat.ChatActivity;
 import wyj.com.androidvip.entity.IndexBannerBean;
 import wyj.com.androidvip.entity.IndexNewsBean;
-import wyj.com.androidvip.entity.IndexTabBean;
 import wyj.com.androidvip.index.adapter.IndexNewsAdapter;
 import wyj.com.androidvip.index.presenter.IndexPresenter;
 import wyj.com.androidvip.index.view.IndexView;
@@ -52,21 +50,32 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     Banner frameIndexBanner;
     @BindView(R.id.frame_index_xrv)
     XRecyclerView frameIndexXrv;
-    @BindView(R.id.frame_index_tab)
-    TabLayout frameIndexTab;
     @BindView(R.id.frame_index_banner_title)
     TextView frameIndexBannerTitle;
+    @BindView(R.id.frame_index_tab_vip)
+    LinearLayout frameIndexTabVip;
+    @BindView(R.id.frame_index_tab_video)
+    LinearLayout frameIndexTabVideo;
+    @BindView(R.id.frame_index_tab_technica1)
+    LinearLayout frameIndexTabTechnica1;
+    @BindView(R.id.frame_index_tab_talk)
+    LinearLayout frameIndexTabTalk;
     private List<String> bannerList = new ArrayList<>();
     private List<IndexNewsBean.ItemsBean> newsList = new ArrayList<>();
     private IndexNewsAdapter newsAdapter;
     private int NEWS_TYPE = 0;
 
-    @OnClick({R.id.frame_index_banner, R.id.frame_index_xrv})
+    @OnClick({R.id.frame_index_tab_vip, R.id.frame_index_tab_video, R.id.frame_index_tab_technica1, R.id.frame_index_tab_talk})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.frame_index_banner:
+            case R.id.frame_index_tab_vip:
                 break;
-            case R.id.frame_index_xrv:
+            case R.id.frame_index_tab_video:
+                break;
+            case R.id.frame_index_tab_technica1:
+                break;
+            case R.id.frame_index_tab_talk:
+                startActivity(ChatActivity.class);
                 break;
         }
     }
@@ -88,36 +97,6 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
     @Override
     protected void initData() {
-        //tab
-        List<IndexTabBean> tabList = new ArrayList<>();
-        tabList.add(new IndexTabBean(R.drawable.vip, "vip干货铺", 1));
-        tabList.add(new IndexTabBean(R.drawable.live, "每日视频", 2));
-        tabList.add(new IndexTabBean(R.drawable.day_vip, "技术博文", 3));
-        tabList.add(new IndexTabBean(R.drawable.every, "谈一谈", 4));
-        for (IndexTabBean bean : tabList) {
-            frameIndexTab.addTab(frameIndexTab.newTab().setText(bean.getTab()).setIcon(bean.getImg()));
-        }
-        frameIndexTab.setTabMode(TabLayout.GRAVITY_FILL);
-        frameIndexTab.setSelectedTabIndicatorHeight(0);
-        frameIndexTab.setTabTextColors(Color.BLACK, Color.RED);
-
-        //tab的点击监听
-        frameIndexTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                NEWS_TYPE = tab.getPosition() + 1;
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
-        //点击事件
-
         //recycleView数据展示
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         frameIndexXrv.setLayoutManager(manager);
