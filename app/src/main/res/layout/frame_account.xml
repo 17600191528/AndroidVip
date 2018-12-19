@@ -19,12 +19,13 @@
             android:orientation="vertical">
 
             <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/account_head"
+                android:id="@+id/frame_account_head"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:roundAsCircle="true"/>
 
             <TextView
+                android:id="@+id/frame_account_txt_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"

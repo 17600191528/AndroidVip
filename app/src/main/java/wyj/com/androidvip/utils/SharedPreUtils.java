@@ -3,6 +3,12 @@ package wyj.com.androidvip.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * @Description：5A的sp
+ * @Author：执念
+ * @Date：2018/12/19 11:16
+ */
+
 public class SharedPreUtils {
     private static final String PREFERENCES = "wyj";
     private static SharedPreferences sp;

@@ -1,6 +1,7 @@
 package wyj.com.androidvip.base;
 
 
+import java.io.File;
 import java.util.function.DoubleUnaryOperator;
 
 import io.reactivex.Observable;
@@ -11,6 +12,7 @@ import wyj.com.androidvip.entity.GanTitlebean;
 import wyj.com.androidvip.entity.IndexBannerBean;
 import wyj.com.androidvip.entity.IndexNewsBean;
 import wyj.com.androidvip.entity.LiveIndexBean;
+import wyj.com.androidvip.entity.LiveInfoBean;
 import wyj.com.androidvip.entity.LoginBean;
 import wyj.com.androidvip.entity.RegisterBean;
 import wyj.com.androidvip.entity.StudyInfoBean;
@@ -48,7 +50,7 @@ public interface IApi {
     Observable<StudyXrvBean> getStudyXrv();
 
     //学习页面具体数据展示
-    @GET("txt/study_{a}.txt")
+    @GET("txt/study_{study_id}.txt")
     Observable<StudyInfoBean> getStudyInfo(@Path("study_id") String study_id);
 
     //经典页面标题
@@ -62,6 +64,19 @@ public interface IApi {
     //视频页面展示
     @GET("txt/live/video_index.txt")
     Observable<LiveIndexBean> getLiveIndex();
+
+    //单个视频详情
+    @GET("txt/live/video_{position}.txt")
+    Observable<LiveInfoBean> getLiveInFo(@Path("position") String position);
+
+    //视频流
+    @GET("cert/gan_live.php")
+    Observable<LiveInfoBean> getLiveVideo(@Query("stock") String stock);
+
+    //上传头像
+    @GET("cert/upload_image.php")
+    Observable<TiShiBean> changeHead(@Query("user_hidden") String user_hidden, @Query("file") File file);
+
 }
 
 

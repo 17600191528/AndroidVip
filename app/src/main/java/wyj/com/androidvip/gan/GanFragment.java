@@ -35,6 +35,7 @@ import wyj.com.androidvip.gan.adapter.GanAdapter;
 import wyj.com.androidvip.gan.presenter.GanPresenter;
 import wyj.com.androidvip.gan.view.GanView;
 import wyj.com.androidvip.index.adapter.IndexNewsAdapter;
+import wyj.com.androidvip.info.InFoActivity;
 
 /**
  * @Description：经典
@@ -89,7 +90,16 @@ public class GanFragment extends BaseFragment<GanPresenter> implements GanView<G
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
-                outRect.set(0,10,0,10);
+                outRect.set(0, 10, 0, 10);
+            }
+        });
+        //条目点击事件
+        ganAdapter.setOnItemClickListener(new GanAdapter.OnItemClickListener() {
+            @Override
+            public void itemClick(int position) {
+                String link = list.get(position).getNews_link();
+                EventBus.getDefault().postSticky(link);
+                startActivity(InFoActivity.class);
             }
         });
         //上拉下拉
@@ -101,7 +111,7 @@ public class GanFragment extends BaseFragment<GanPresenter> implements GanView<G
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
-                presenter.getGanArticle(position+1+"");
+                presenter.getGanArticle(position + 1 + "");
             }
 
             @Override

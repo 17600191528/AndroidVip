@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,13 +13,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +39,7 @@ import wyj.com.androidvip.entity.IndexTabBean;
 import wyj.com.androidvip.index.adapter.IndexNewsAdapter;
 import wyj.com.androidvip.index.presenter.IndexPresenter;
 import wyj.com.androidvip.index.view.IndexView;
+import wyj.com.androidvip.info.InFoActivity;
 
 /**
  * @Description：首页
@@ -49,6 +54,8 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
     XRecyclerView frameIndexXrv;
     @BindView(R.id.frame_index_tab)
     TabLayout frameIndexTab;
+    @BindView(R.id.frame_index_banner_title)
+    TextView frameIndexBannerTitle;
     private List<String> bannerList = new ArrayList<>();
     private List<IndexNewsBean.ItemsBean> newsList = new ArrayList<>();
     private IndexNewsAdapter newsAdapter;
@@ -84,9 +91,9 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         //tab
         List<IndexTabBean> tabList = new ArrayList<>();
         tabList.add(new IndexTabBean(R.drawable.vip, "vip干货铺", 1));
-        tabList.add(new IndexTabBean(R.drawable.live, "每日视频",2));
-        tabList.add(new IndexTabBean(R.drawable.day_vip, "技术博文",3));
-        tabList.add(new IndexTabBean(R.drawable.every, "谈一谈",4));
+        tabList.add(new IndexTabBean(R.drawable.live, "每日视频", 2));
+        tabList.add(new IndexTabBean(R.drawable.day_vip, "技术博文", 3));
+        tabList.add(new IndexTabBean(R.drawable.every, "谈一谈", 4));
         for (IndexTabBean bean : tabList) {
             frameIndexTab.addTab(frameIndexTab.newTab().setText(bean.getTab()).setIcon(bean.getImg()));
         }
@@ -98,8 +105,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
         frameIndexTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                NEWS_TYPE = tab.getPosition()+1;
-                presenter.getIndexNews(NEWS_TYPE + "");
+                NEWS_TYPE = tab.getPosition() + 1;
             }
 
             @Override
@@ -122,7 +128,16 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 super.getItemOffsets(outRect, view, parent, state);
-                outRect.set(0,10,0,10);
+                outRect.set(0, 10, 0, 10);
+            }
+        });
+        //条目点击事件
+        newsAdapter.setOnItemClickListener(new IndexNewsAdapter.OnItemClickListener() {
+            @Override
+            public void itemClick(int position) {
+                String link = newsList.get(position).getNews_link();
+                EventBus.getDefault().postSticky(link);
+                startActivity(InFoActivity.class);
             }
         });
         //上拉下拉
@@ -135,7 +150,7 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
 
 
     @Override
-    public void onSuccess1(IndexBannerBean bean) {
+    public void onSuccess1(final IndexBannerBean bean) {
         //轮播图
         for (IndexBannerBean.DataBean bean1 : bean.getData()) {
             bannerList.add(bean1.getImage());
@@ -144,6 +159,34 @@ public class IndexFragment extends BaseFragment<IndexPresenter> implements Index
                 .setImageLoader(new BannerImageLoad())
                 .setDelayTime(2000)
                 .start();
+        //轮播图设置标题
+        frameIndexBannerTitle.setText(bean.getData().get(0).getTitle());
+        frameIndexBanner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position <= bannerList.size()) {
+                    frameIndexBannerTitle.setText(bean.getData().get(position - 1).getTitle());
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+        //轮播的图片的点击事件
+        frameIndexBanner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                String link = bean.getData().get(position).getLink();
+                EventBus.getDefault().postSticky(link);
+                startActivity(InFoActivity.class);
+            }
+        });
+
     }
 
     @Override

@@ -8,6 +8,14 @@ package wyj.com.androidvip.entity;
 
 public class TiShiBean {
 
+    @Override
+    public String toString() {
+        return "TiShiBean{" +
+                "status=" + status +
+                ", message='" + message + '\'' +
+                '}';
+    }
+
     /**
      * status : 0
      * message : 注册成功

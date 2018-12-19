@@ -26,6 +26,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import wyj.com.androidvip.R;
 import wyj.com.androidvip.base.BaseFragment;
 import wyj.com.androidvip.entity.LiveIndexBean;
+import wyj.com.androidvip.entity.LiveInfoBean;
 import wyj.com.androidvip.live.adapter.LiveAdapter;
 import wyj.com.androidvip.live.presenter.LivePresenter;
 import wyj.com.androidvip.live.view.LiveView;
@@ -36,7 +37,7 @@ import wyj.com.androidvip.live.view.LiveView;
  * @Date：2018/12/15 12:00
  */
 
-public class LiveFragment extends BaseFragment<LivePresenter> implements LiveView<LiveIndexBean> {
+public class LiveFragment extends BaseFragment<LivePresenter> implements LiveView<LiveIndexBean, LiveInfoBean, LiveInfoBean> {
     @BindView(R.id.frame_live_sdv)
     SimpleDraweeView frameLiveSdv;
     @BindView(R.id.frame_live_xrv)
@@ -77,7 +78,6 @@ public class LiveFragment extends BaseFragment<LivePresenter> implements LiveVie
                 outRect.set(20,10,20,10);
             }
         });
-
         //点击事件
         frameLiveSdv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,8 +99,9 @@ public class LiveFragment extends BaseFragment<LivePresenter> implements LiveVie
         presenter.getLiveIndex();
     }
 
+    //全部的视频列表
     @Override
-    public void onSuccess(LiveIndexBean bean) {
+    public void onSuccess1(LiveIndexBean bean) {
         list.clear();
         list.addAll(bean.getItems());
         liveAdapter.notifyDataSetChanged();
@@ -108,6 +109,17 @@ public class LiveFragment extends BaseFragment<LivePresenter> implements LiveVie
         //大图
         frameLiveSdv.setImageURI(list.get(0).getImage());
         frameLiveTxt.setText(list.get(0).getTitle());
+    }
+
+    //单个视频流
+    @Override
+    public void onSuccess2(LiveInfoBean liveInfoBean) {
+
+    }
+
+    //单个视频流
+    @Override
+    public void onSuccess3(LiveInfoBean bean) {
     }
 
     @Override

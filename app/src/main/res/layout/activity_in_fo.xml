@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="wyj.com.androidvip.info.InFoActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="#ec3232">
+
+        <ImageView
+            android:id="@+id/activity_info_img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:src="@drawable/base_back_left" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/activity_info_img_back"
+            android:gravity="center"
+            android:padding="@dimen/dp_5"
+            android:text="详情"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_20" />
+    </RelativeLayout>
+
+
+    <WebView
+        android:id="@+id/activity_info_wv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></WebView>
+
+</LinearLayout>

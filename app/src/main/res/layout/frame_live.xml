@@ -21,10 +21,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/frame_live_xrv"
-        android:padding="@dimen/dp_10"
+        android:padding="@dimen/dp_5"
         android:text="Android经典集锦视频"
         android:textColor="#fff"
         android:background="@drawable/live_txt_bg"
-        android:textSize="@dimen/sp_15" />
+        android:textSize="@dimen/sp_12" />
 
 </RelativeLayout>

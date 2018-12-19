@@ -1,6 +1,7 @@
 package wyj.com.androidvip.account;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import wyj.com.androidvip.account.view.LoginView;
 import wyj.com.androidvip.base.BaseActivity;
 import wyj.com.androidvip.entity.LoginBean;
 import wyj.com.androidvip.utils.SharedPreUtils;
+import wyj.com.androidvip.utils.SpUtils;
 import wyj.com.androidvip.utils.Utils;
 
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginView<LoginBean> {
@@ -81,8 +83,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void onSuccess(LoginBean bean) {
         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+//        SpUtils.putLoginBean(this, bean);
+        SharedPreferences sp = getSharedPreferences("config", MODE_PRIVATE);
+        sp.edit()
+                .putBoolean("isLogin", true)//登录状态
+                .putString("user_hidden", bean.getUser_id())//登录状态
+                .putString("head", null)//头像
+                .commit();
         finish();
-//        SharedPreUtils.put(this, isLogin, );
     }
 
     @Override
